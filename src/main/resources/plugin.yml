@@ -1,0 +1,11 @@
+name: MinecraftSweeper
+main: com.au2001.minecraftsweeper.plugin.MinecraftSweeper
+author: au2001
+description: A Minesweeper plugin for Minecraft.
+version: 1.0
+api-version: 1.13
+commands:
+  minecraftsweeperreset:
+    description: Resets the hole game.
+    aliases: [mcsreset, minereset]
+    permission: MinecraftSweeper.reset

@@ -1,0 +1,47 @@
+
+chunk_size: 16
+
+world_name: 'world'
+
+map_height: 64
+
+bomb_chance: 0.1
+
+square_size: 9
+
+max_chained: 100
+
+detect_range: 1
+
+detect_circle: false
+
+key_item:
+  ==: org.bukkit.inventory.ItemStack
+  v: 1628
+  type: TRIPWIRE_HOOK
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §9Minecraft Sweeper Key
+    lore:
+    - §7Click on a square to reveal its
+    - §7contents, but beware of bombs!
+    ItemFlags:
+    - HIDE_UNBREAKABLE
+    Unbreakable: true
+
+consume_key: true
+
+rollback_range: 2
+
+rollback_circle: false
+
+rollback_delay: 60
+
+reset_message: '&0[&1MinecraftSweeper&0] &9The map has successfully been reset.'
+
+file_name: 'storage.bin'
+
+storage_type: 'BINARY'
+
+debug: false
