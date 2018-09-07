@@ -274,7 +274,7 @@ public class BuildStatics {
 
 		BOMB.put(new Point(6, 0, 4), Material.BLACK_CONCRETE);
 		BOMB.put(new Point(5, 0, 4), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 4), Material.WHITE_CONCRETE);
+		BOMB.put(new Point(4, 0, 4), Material.BLACK_CONCRETE);
 		BOMB.put(new Point(3, 0, 4), Material.BLACK_CONCRETE);
 		BOMB.put(new Point(2, 0, 4), Material.BLACK_CONCRETE);
 

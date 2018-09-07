@@ -27,20 +27,20 @@ public class MCBombGrid extends BombGrid {
 		this(world, new TempGameStorage(), bombChance, squareSize);
 	}
 
-	public MCBombGrid(World world, GameStorage resetStorage) {
-		this(world, resetStorage, 0.1);
+	public MCBombGrid(World world, GameStorage gameStorage) {
+		this(world, gameStorage, 0.1);
 	}
 
-	public MCBombGrid(World world, GameStorage resetStorage, double bombChance) {
-		this(world, resetStorage, bombChance, 1);
+	public MCBombGrid(World world, GameStorage gameStorage, double bombChance) {
+		this(world, gameStorage, bombChance, 1);
 	}
 
-	public MCBombGrid(World world, GameStorage resetStorage, int squareSize) {
-		this(world, resetStorage, 0.1, squareSize);
+	public MCBombGrid(World world, GameStorage gameStorage, int squareSize) {
+		this(world, gameStorage, 0.1, squareSize);
 	}
 
-	public MCBombGrid(World world, GameStorage resetStorage, double bombChance, int squareSize) {
-		super(world != null? world.getUID() : null, resetStorage, bombChance);
+	public MCBombGrid(World world, GameStorage gameStorage, double bombChance, int squareSize) {
+		super(world != null? world.getUID() : null, gameStorage, bombChance);
 
 		if (squareSize <= 0) squareSize = 1;
 

@@ -20,24 +20,32 @@ public class BombGrid {
 		this(uuid, null);
 	}
 
-	public BombGrid(GameStorage resetStorage) {
-		this(null, resetStorage);
+	public BombGrid(GameStorage gameStorage) {
+		this(null, gameStorage);
 	}
 
 	public BombGrid(int bombChance) {
 		this(null, null, bombChance);
 	}
 
-	public BombGrid(UUID uuid, GameStorage resetStorage) {
-		this(uuid, resetStorage, 0.1);
+	public BombGrid(UUID uuid, int bombChance) {
+		this(uuid, null, bombChance);
 	}
 
-	public BombGrid(UUID uuid, GameStorage resetStorage, double bombChance) {
+	public BombGrid(GameStorage gameStorage, int bombChance) {
+		this(null, gameStorage, bombChance);
+	}
+
+	public BombGrid(UUID uuid, GameStorage gameStorage) {
+		this(uuid, gameStorage, 0.1);
+	}
+
+	public BombGrid(UUID uuid, GameStorage gameStorage, double bombChance) {
 		if (uuid == null) uuid = UUID.randomUUID();
-		if (resetStorage == null) resetStorage = new TempGameStorage();
+		if (gameStorage == null) gameStorage = new TempGameStorage();
 
 		this.uuid = uuid;
-		this.gameStorage = resetStorage;
+		this.gameStorage = gameStorage;
 		this.bombChance = bombChance;
 
 		this.hash = uuid.getLeastSignificantBits() ^ uuid.getMostSignificantBits();
@@ -45,10 +53,10 @@ public class BombGrid {
 
 	public boolean isBomb(int x, int y) {
 		// 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-		// -----------------------------------                                      [OR]
-		//                  X
-		//                                     -----------------------------------  [OR]
-		//                                                      Y
+		// ----------------------------------- -----------------------------------  [OR]
+		//                  X                                   Y
+		// ----------------------------------- ----------------------------------- [XOR]
+		//                  Y                                   X
 		// ----------------------------------------------------------------------- [XOR]
 		//                               Reset count
 		// ----------------------------------------------------------------------- [XOR]

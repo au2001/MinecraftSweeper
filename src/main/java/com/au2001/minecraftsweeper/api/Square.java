@@ -32,4 +32,13 @@ public class Square {
 		return new Square(this.grid, this.x + x, this.y + y);
 	}
 
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Square)) return false;
+		if (((Square) obj).x != this.x || ((Square) obj).y != this.y) return false;
+		if (((Square) obj).grid == this.grid) return true;
+		if (this.grid == null) return false;
+		if (this.grid.equals(((Square) obj).grid)) return true;
+		return false;
+	}
+
 }
