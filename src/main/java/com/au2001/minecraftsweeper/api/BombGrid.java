@@ -55,15 +55,18 @@ public class BombGrid {
 		// 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 		// ----------------------------------- -----------------------------------  [OR]
 		//                  X                                   Y
-		// ----------------------------------- ----------------------------------- [XOR]
-		//                  Y                                   X
 		// ----------------------------------------------------------------------- [XOR]
 		//                               Reset count
 		// ----------------------------------------------------------------------- [XOR]
 		//                               UUID-based hash
 
-		long seed = ((long) x << 32 | y) ^ ((long) y << 32 | x) ^ this.gameStorage.getTotal(x, y) ^ this.hash;
+		long seed = (((long) x << 32) | Math.abs(y)) ^ this.gameStorage.getTotal(x, y) ^ this.hash;
+		if (y < 0) seed = Long.rotateLeft(seed, 37);
+
 		Random random = new Random(seed);
+
+		for (int i = random.nextInt(16); i > 0; i--)
+			random.nextBytes(new byte[random.nextInt(64)]);
 
 		return random.nextDouble() < this.bombChance;
 	}
