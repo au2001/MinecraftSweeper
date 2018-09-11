@@ -12,7 +12,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -35,30 +34,23 @@ public class KeyItemInput extends Input implements Listener, Closeable {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.getClickedBlock() == null) return;
-		if (!event.getHand().equals(EquipmentSlot.HAND)) return;
 		if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && !event.getAction().equals(Action.LEFT_CLICK_BLOCK)) return;
 		if (!event.getClickedBlock().getWorld().equals(this.game.getWorld())) return;
 
 		event.setCancelled(true);
 		event.setUseInteractedBlock(Result.DENY);
+		event.setUseItemInHand(Result.DENY);
 
 		Square square = new MCSquare(this.game.getBombGrid(), event.getClickedBlock().getLocation());
 
-		if (this.game.grid.gameStorage.isSweeped(square.x, square.y)) {
-			event.setUseItemInHand(Result.DENY);
-			return;
-		}
+		if (this.game.grid.gameStorage.isSweeped(square.x, square.y)) return;
 
 		if (this.config.keyItem != null) {
-			if (event.getItem() == null || !event.getItem().isSimilar(this.config.keyItem) || event.getItem().getAmount() < this.config.keyItem.getAmount()) {
-				event.setUseItemInHand(Result.DENY);
-				return;
-			}
+			ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-			event.setUseItemInHand(Result.ALLOW);
+			if (item == null || !item.isSimilar(this.config.keyItem) || item.getAmount() < this.config.keyItem.getAmount()) return;
 
 			if (this.config.consumeKey) {
-				ItemStack item = event.getItem();
 				if (item.getAmount() > this.config.keyItem.getAmount()) {
 					item.setAmount(item.getAmount() - this.config.keyItem.getAmount());
 				} else item = null;
