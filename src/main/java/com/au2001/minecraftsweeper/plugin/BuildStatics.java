@@ -1,290 +1,362 @@
 package com.au2001.minecraftsweeper.plugin;
 
 import org.bukkit.Material;
+import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("deprecation")
 public class BuildStatics {
 
-	public static final Map<Point, Material> UNKNOWN, FLAG, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, BOMB;
+	public static final MaterialData AIR, BLACK_CONCRETE, BLUE_CONCRETE, CYAN_CONCRETE, GREEN_CONCRETE, LIGHT_BLUE_CONCRETE, LIGHT_GRAY_CONCRETE, ORANGE_CONCRETE, RED_CONCRETE, WHITE_CONCRETE;
+	public static final Map<Point, MaterialData> UNKNOWN, FLAG, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, BOMB;
+
+	static { // Materials
+		AIR = new MaterialData(Material.AIR);
+
+		MaterialData blackConcrete, blueConcrete, cyanConcrete, greenConcrete, lightBlueConcrete, lightGrayConcrete, orangeConcrete, redConcrete, whiteConcrete;
+
+		try {
+			blackConcrete = new MaterialData(Material.BLACK_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			blackConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 15);
+		}
+		BLACK_CONCRETE = blackConcrete;
+
+		try {
+			blueConcrete = new MaterialData(Material.BLUE_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			blueConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 11);
+		}
+		BLUE_CONCRETE = blueConcrete;
+
+		try {
+			cyanConcrete = new MaterialData(Material.CYAN_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			cyanConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 9);
+		}
+		CYAN_CONCRETE = cyanConcrete;
+
+		try {
+			greenConcrete = new MaterialData(Material.GREEN_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			greenConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 13);
+		}
+		GREEN_CONCRETE = greenConcrete;
+
+		try {
+			lightBlueConcrete = new MaterialData(Material.LIGHT_BLUE_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			lightBlueConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 3);
+		}
+		LIGHT_BLUE_CONCRETE = lightBlueConcrete;
+
+		try {
+			lightGrayConcrete = new MaterialData(Material.LIGHT_GRAY_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			lightGrayConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 8);
+		}
+		LIGHT_GRAY_CONCRETE = lightGrayConcrete;
+
+		try {
+			orangeConcrete = new MaterialData(Material.ORANGE_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			orangeConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 1);
+		}
+		ORANGE_CONCRETE = orangeConcrete;
+
+		try {
+			redConcrete = new MaterialData(Material.RED_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			redConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 14);
+		}
+		RED_CONCRETE = redConcrete;
+
+		try {
+			whiteConcrete = new MaterialData(Material.WHITE_CONCRETE);
+		} catch (NoSuchFieldError e) {
+			whiteConcrete = new MaterialData(Material.valueOf("CONCRETE"), (byte) 0);
+		}
+		WHITE_CONCRETE = whiteConcrete;
+	}
 
 	static { // Bomb
-		UNKNOWN = new HashMap<Point, Material>();
+		UNKNOWN = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				UNKNOWN.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				UNKNOWN.put(new Point(x, 1, z), Material.WHITE_CONCRETE);
+				BuildStatics.UNKNOWN.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.UNKNOWN.put(new Point(x, 1, z), BuildStatics.WHITE_CONCRETE);
 			}
 		}
 	}
 
 	static { // TODO: Flag
-		FLAG = UNKNOWN;
+		FLAG = BuildStatics.UNKNOWN;
 	}
 
 	static { // Zero
-		ZERO = new HashMap<Point, Material>();
+		ZERO = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				ZERO.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				ZERO.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.ZERO.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.ZERO.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 	}
 
 	static { // One
-		ONE = new HashMap<Point, Material>();
+		ONE = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				ONE.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				ONE.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.ONE.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.ONE.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		ONE.put(new Point(4, 0, 6), Material.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 6), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		ONE.put(new Point(5, 0, 5), Material.LIGHT_BLUE_CONCRETE);
-		ONE.put(new Point(4, 0, 5), Material.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(5, 0, 5), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 5), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		ONE.put(new Point(4, 0, 4), Material.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 4), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		ONE.put(new Point(4, 0, 3), Material.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 3), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		ONE.put(new Point(5, 0, 2), Material.LIGHT_BLUE_CONCRETE);
-		ONE.put(new Point(4, 0, 2), Material.LIGHT_BLUE_CONCRETE);
-		ONE.put(new Point(3, 0, 2), Material.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(5, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(3, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
 	}
 
 	static { // Two
-		TWO = new HashMap<Point, Material>();
+		TWO = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				TWO.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				TWO.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.TWO.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.TWO.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		TWO.put(new Point(5, 0, 6), Material.GREEN_CONCRETE);
-		TWO.put(new Point(4, 0, 6), Material.GREEN_CONCRETE);
-		TWO.put(new Point(3, 0, 6), Material.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(4, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 6), BuildStatics.GREEN_CONCRETE);
 
-		TWO.put(new Point(6, 0, 5), Material.GREEN_CONCRETE);
-		TWO.put(new Point(2, 0, 5), Material.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(6, 0, 5), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(2, 0, 5), BuildStatics.GREEN_CONCRETE);
 
-		TWO.put(new Point(4, 0, 4), Material.GREEN_CONCRETE);
-		TWO.put(new Point(3, 0, 4), Material.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(4, 0, 4), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 4), BuildStatics.GREEN_CONCRETE);
 
-		TWO.put(new Point(5, 0, 3), Material.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 3), BuildStatics.GREEN_CONCRETE);
 
-		TWO.put(new Point(6, 0, 2), Material.GREEN_CONCRETE);
-		TWO.put(new Point(5, 0, 2), Material.GREEN_CONCRETE);
-		TWO.put(new Point(4, 0, 2), Material.GREEN_CONCRETE);
-		TWO.put(new Point(3, 0, 2), Material.GREEN_CONCRETE);
-		TWO.put(new Point(2, 0, 2), Material.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(6, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(4, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(2, 0, 2), BuildStatics.GREEN_CONCRETE);
 	}
 
 	static { // Three
-		THREE = new HashMap<Point, Material>();
+		THREE = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				THREE.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				THREE.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.THREE.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.THREE.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		THREE.put(new Point(5, 0, 6), Material.ORANGE_CONCRETE);
-		THREE.put(new Point(4, 0, 6), Material.ORANGE_CONCRETE);
-		THREE.put(new Point(3, 0, 6), Material.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(5, 0, 6), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(4, 0, 6), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(3, 0, 6), BuildStatics.ORANGE_CONCRETE);
 
-		THREE.put(new Point(2, 0, 5), Material.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(2, 0, 5), BuildStatics.ORANGE_CONCRETE);
 
-		THREE.put(new Point(4, 0, 4), Material.ORANGE_CONCRETE);
-		THREE.put(new Point(3, 0, 4), Material.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(4, 0, 4), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(3, 0, 4), BuildStatics.ORANGE_CONCRETE);
 
-		THREE.put(new Point(2, 0, 3), Material.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(2, 0, 3), BuildStatics.ORANGE_CONCRETE);
 
-		THREE.put(new Point(5, 0, 2), Material.ORANGE_CONCRETE);
-		THREE.put(new Point(4, 0, 2), Material.ORANGE_CONCRETE);
-		THREE.put(new Point(3, 0, 2), Material.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(5, 0, 2), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(4, 0, 2), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(3, 0, 2), BuildStatics.ORANGE_CONCRETE);
 	}
 
 	static { // Four
-		FOUR = new HashMap<Point, Material>();
+		FOUR = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				FOUR.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				FOUR.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.FOUR.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.FOUR.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		FOUR.put(new Point(5, 0, 6), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(3, 0, 6), Material.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(5, 0, 6), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 6), BuildStatics.BLUE_CONCRETE);
 
-		FOUR.put(new Point(6, 0, 5), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(3, 0, 5), Material.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(6, 0, 5), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 5), BuildStatics.BLUE_CONCRETE);
 
-		FOUR.put(new Point(6, 0, 4), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(5, 0, 4), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(4, 0, 4), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(3, 0, 4), Material.BLUE_CONCRETE);
-		FOUR.put(new Point(2, 0, 4), Material.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(6, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(5, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(4, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(2, 0, 4), BuildStatics.BLUE_CONCRETE);
 
-		FOUR.put(new Point(3, 0, 3), Material.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 3), BuildStatics.BLUE_CONCRETE);
 
-		FOUR.put(new Point(3, 0, 2), Material.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 2), BuildStatics.BLUE_CONCRETE);
 	}
 
 	static { // Five
-		FIVE = new HashMap<Point, Material>();
+		FIVE = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				FIVE.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				FIVE.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.FIVE.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.FIVE.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		FIVE.put(new Point(6, 0, 6), Material.RED_CONCRETE);
-		FIVE.put(new Point(5, 0, 6), Material.RED_CONCRETE);
-		FIVE.put(new Point(4, 0, 6), Material.RED_CONCRETE);
-		FIVE.put(new Point(3, 0, 6), Material.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(6, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 6), BuildStatics.RED_CONCRETE);
 
-		FIVE.put(new Point(6, 0, 5), Material.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(6, 0, 5), BuildStatics.RED_CONCRETE);
 
-		FIVE.put(new Point(6, 0, 4), Material.RED_CONCRETE);
-		FIVE.put(new Point(5, 0, 4), Material.RED_CONCRETE);
-		FIVE.put(new Point(4, 0, 4), Material.RED_CONCRETE);
-		FIVE.put(new Point(3, 0, 4), Material.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(6, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 4), BuildStatics.RED_CONCRETE);
 
-		FIVE.put(new Point(2, 0, 3), Material.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(2, 0, 3), BuildStatics.RED_CONCRETE);
 
-		FIVE.put(new Point(6, 0, 2), Material.RED_CONCRETE);
-		FIVE.put(new Point(5, 0, 2), Material.RED_CONCRETE);
-		FIVE.put(new Point(4, 0, 2), Material.RED_CONCRETE);
-		FIVE.put(new Point(3, 0, 2), Material.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(6, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 2), BuildStatics.RED_CONCRETE);
 	}
 
 	static { // Six
-		SIX = new HashMap<Point, Material>();
+		SIX = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				SIX.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				SIX.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.SIX.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.SIX.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		SIX.put(new Point(5, 0, 6), Material.CYAN_CONCRETE);
-		SIX.put(new Point(4, 0, 6), Material.CYAN_CONCRETE);
-		SIX.put(new Point(3, 0, 6), Material.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 6), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 6), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(3, 0, 6), BuildStatics.CYAN_CONCRETE);
 
-		SIX.put(new Point(6, 0, 5), Material.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(6, 0, 5), BuildStatics.CYAN_CONCRETE);
 
-		SIX.put(new Point(6, 0, 4), Material.CYAN_CONCRETE);
-		SIX.put(new Point(5, 0, 4), Material.CYAN_CONCRETE);
-		SIX.put(new Point(4, 0, 4), Material.CYAN_CONCRETE);
-		SIX.put(new Point(3, 0, 4), Material.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(6, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(3, 0, 4), BuildStatics.CYAN_CONCRETE);
 
-		SIX.put(new Point(6, 0, 3), Material.CYAN_CONCRETE);
-		SIX.put(new Point(2, 0, 3), Material.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(6, 0, 3), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(2, 0, 3), BuildStatics.CYAN_CONCRETE);
 
-		SIX.put(new Point(5, 0, 2), Material.CYAN_CONCRETE);
-		SIX.put(new Point(4, 0, 2), Material.CYAN_CONCRETE);
-		SIX.put(new Point(3, 0, 2), Material.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 2), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 2), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(3, 0, 2), BuildStatics.CYAN_CONCRETE);
 	}
 
 	static { // Seven
-		SEVEN = new HashMap<Point, Material>();
+		SEVEN = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				SEVEN.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				SEVEN.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.SEVEN.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.SEVEN.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		SEVEN.put(new Point(6, 0, 6), Material.BLACK_CONCRETE);
-		SEVEN.put(new Point(5, 0, 6), Material.BLACK_CONCRETE);
-		SEVEN.put(new Point(4, 0, 6), Material.BLACK_CONCRETE);
-		SEVEN.put(new Point(3, 0, 6), Material.BLACK_CONCRETE);
-		SEVEN.put(new Point(2, 0, 6), Material.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(5, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(3, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
 
-		SEVEN.put(new Point(2, 0, 5), Material.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(2, 0, 5), BuildStatics.BLACK_CONCRETE);
 
-		SEVEN.put(new Point(3, 0, 4), Material.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(3, 0, 4), BuildStatics.BLACK_CONCRETE);
 
-		SEVEN.put(new Point(4, 0, 3), Material.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(4, 0, 3), BuildStatics.BLACK_CONCRETE);
 
-		SEVEN.put(new Point(4, 0, 2), Material.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(4, 0, 2), BuildStatics.BLACK_CONCRETE);
 	}
 
 	static { // Eight
-		EIGHT = new HashMap<Point, Material>();
+		EIGHT = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				EIGHT.put(new Point(x, 0, z), Material.WHITE_CONCRETE);
-				EIGHT.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.EIGHT.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.EIGHT.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		EIGHT.put(new Point(5, 0, 6), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(4, 0, 6), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(3, 0, 6), Material.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(3, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
 
-		EIGHT.put(new Point(6, 0, 5), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(2, 0, 5), Material.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(6, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(2, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
 
-		EIGHT.put(new Point(5, 0, 4), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(4, 0, 4), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(3, 0, 4), Material.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(3, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
 
-		EIGHT.put(new Point(6, 0, 3), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(2, 0, 3), Material.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(6, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(2, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
 
-		EIGHT.put(new Point(5, 0, 2), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(4, 0, 2), Material.LIGHT_GRAY_CONCRETE);
-		EIGHT.put(new Point(3, 0, 2), Material.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(3, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
 	}
 
 	static { // Bomb
-		BOMB = new HashMap<Point, Material>();
+		BOMB = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
-				BOMB.put(new Point(x, 0, z), Material.RED_CONCRETE);
-				BOMB.put(new Point(x, 1, z), Material.AIR);
+				BuildStatics.BOMB.put(new Point(x, 0, z), BuildStatics.RED_CONCRETE);
+				BuildStatics.BOMB.put(new Point(x, 1, z), BuildStatics.AIR);
 			}
 		}
 
-		BOMB.put(new Point(6, 0, 6), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 6), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(2, 0, 6), Material.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
 
-		BOMB.put(new Point(5, 0, 5), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 5), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(3, 0, 5), Material.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(3, 0, 5), BuildStatics.BLACK_CONCRETE);
 
-		BOMB.put(new Point(6, 0, 4), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(5, 0, 4), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 4), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(3, 0, 4), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(2, 0, 4), Material.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(3, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(2, 0, 4), BuildStatics.BLACK_CONCRETE);
 
-		BOMB.put(new Point(5, 0, 3), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 3), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(3, 0, 3), Material.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 3), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 3), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(3, 0, 3), BuildStatics.BLACK_CONCRETE);
 
-		BOMB.put(new Point(6, 0, 2), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(4, 0, 2), Material.BLACK_CONCRETE);
-		BOMB.put(new Point(2, 0, 2), Material.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(2, 0, 2), BuildStatics.BLACK_CONCRETE);
 	}
 
 	public static class Point {

@@ -10,7 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
+import org.bukkit.material.MaterialData;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -55,8 +57,9 @@ public class SquarePainterOutput extends Output {
 		this.paint(square);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void paint(Square square) {
-		Map<Point, Material> drawing;
+		Map<Point, MaterialData> drawing;
 
 		if (this.gameStorage.isSweeped(square.x, square.y)) {
 			if (square.isBomb()) {
@@ -111,7 +114,7 @@ public class SquarePainterOutput extends Output {
 		if (drawing != null) {
 			World world = Bukkit.getWorld(this.config.worldName);
 
-			for (Entry<Point, Material> entry : drawing.entrySet()) {
+			for (Entry<Point, MaterialData> entry : drawing.entrySet()) {
 				int x = square.x * this.config.squareSize + entry.getKey().x;
 				int y = this.config.mapHeight - 1 + entry.getKey().y;
 				int z = square.y * this.config.squareSize + entry.getKey().z;
@@ -129,8 +132,14 @@ public class SquarePainterOutput extends Output {
 		return true;
 	}
 
-	private void setSafeType(World world, int x, int y, int z, Material type) {
-		if (this.isChunkGenerated(world, x, z)) world.getBlockAt(x, y, z).setType(type);
+	@SuppressWarnings("deprecation")
+	private void setSafeType(World world, int x, int y, int z, MaterialData type) {
+		if (!this.isChunkGenerated(world, x, z)) return;
+		Block block = world.getBlockAt(x, y, z);
+		block.setType(type.getItemType());
+		BlockState state = block.getState();
+		state.setData(type);
+		state.update(true);
 	}
 
 }

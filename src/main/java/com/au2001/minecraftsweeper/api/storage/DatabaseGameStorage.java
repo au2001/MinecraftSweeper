@@ -20,7 +20,7 @@ public class DatabaseGameStorage extends TempGameStorage {
 		try {
 			Statement statement = this.conn.createStatement();
 
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + this.table + " (x INT NULLABLE, y INT NULLABLE, sweeped BOOL NOT NULL DEFAULT FALSE, rollbacks INT NOT NULL DEFAULT 0)");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + this.table + " (x INT NULLABLE, y INT NULLABLE, sweeped BOOL NOT NULL DEFAULT 0, rollbacks INT NOT NULL DEFAULT 0)");
 
 			ResultSet result = statement.executeQuery("SELECT * FROM " + this.table);
 			while (result.next()) {
@@ -29,7 +29,7 @@ public class DatabaseGameStorage extends TempGameStorage {
 				Integer y = result.getInt("y");
 				if (result.wasNull()) y = null;
 				if (x != null && y != null) {
-					super.setSweeped(x, y, result.getBoolean("sweeped"));
+					super.setSweeped(x, y, result.getInt("sweeped") != 0);
 					super.setRollbackCount(x, y, result.getInt("rollbacks"));
 				} else super.setResetCount(result.getInt("rollbacks"));
 			}
@@ -89,7 +89,7 @@ public class DatabaseGameStorage extends TempGameStorage {
 			if (query != null) {
 				preparedStatement = this.conn.prepareStatement(query);
 				if (preparedStatement.getParameterMetaData().getParameterCount() > 2) {
-					preparedStatement.setBoolean(1, sweeped);
+					preparedStatement.setInt(1, sweeped? 1 : 0);
 					preparedStatement.setInt(2, x);
 					preparedStatement.setInt(3, y);
 				} else {
@@ -111,8 +111,8 @@ public class DatabaseGameStorage extends TempGameStorage {
 		try {
 			Statement statement = this.conn.createStatement();
 
-			statement.executeUpdate("UPDATE " + this.table + " SET `sweeped` = FALSE");
-			statement.executeUpdate("DELETE FROM " + this.table + " WHERE `sweeped` = FALSE AND `rollbacks` = 0");
+			statement.executeUpdate("UPDATE " + this.table + " SET `sweeped` = 0");
+			statement.executeUpdate("DELETE FROM " + this.table + " WHERE `sweeped` = 0 AND `rollbacks` = 0");
 
 			statement.close();
 		} catch (SQLException e) {
@@ -133,7 +133,7 @@ public class DatabaseGameStorage extends TempGameStorage {
 			ResultSet result = preparedStatement.executeQuery();
 			String query = null;
 			if (result.next()) {
-				if (result.getBoolean("sweeped"))
+				if (result.getInt("sweeped") != 0)
 					query = "UPDATE " + this.table + " SET `rollbacks` = ? WHERE `x` = ? AND `y` = ?";
 				else query = "DELETE FROM " + this.table + " WHERE `x` = ? AND `y` = ?";
 			} else if (count != 0)

@@ -21,6 +21,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -39,21 +40,37 @@ public class MinecraftSweeper extends JavaPlugin {
 
 	@Override
 	public void onLoad() {
-		MinecraftSweeper.instance = this;
+		if (MinecraftSweeper.instance == null) {
+			MinecraftSweeper.instance = this;
 
-		saveDefaultConfig();
-		reloadConfig();
+			saveDefaultConfig();
+			reloadConfig();
 
-		this.config = new MCSConfig(getConfig());
-		if (this.config.storageType == StorageType.BINARY)
-			this.gameStorage = new BinaryGameStorage(new File(this.getDataFolder(), this.config.fileName));
-		else if (this.config.storageType == StorageType.SQLITE)
-			this.gameStorage = new SQLiteGameStorage(new File(this.getDataFolder(), this.config.fileName));
-		else this.gameStorage = new TempGameStorage();
+			this.config = new MCSConfig(getConfig());
+			if (this.config.storageType == StorageType.BINARY)
+				this.gameStorage = new BinaryGameStorage(new File(this.getDataFolder(), this.config.fileName));
+			else if (this.config.storageType == StorageType.SQLITE)
+				this.gameStorage = new SQLiteGameStorage(new File(this.getDataFolder(), this.config.fileName));
+			else this.gameStorage = new TempGameStorage();
+		}
 	}
 
 	@Override
 	public void onEnable() {
+		if (MinecraftSweeper.instance == null) {
+			MinecraftSweeper.instance = this;
+
+			saveDefaultConfig();
+			reloadConfig();
+
+			this.config = new MCSConfig(getConfig());
+			if (this.config.storageType == StorageType.BINARY)
+				this.gameStorage = new BinaryGameStorage(new File(this.getDataFolder(), this.config.fileName));
+			else if (this.config.storageType == StorageType.SQLITE)
+				this.gameStorage = new SQLiteGameStorage(new File(this.getDataFolder(), this.config.fileName));
+			else this.gameStorage = new TempGameStorage();
+		}
+
 //		if (this.config.debug) {
 //			ItemStack keyItem = new ItemStack(Material.TRIPWIRE_HOOK);
 //			ItemMeta keyMeta = keyItem.getItemMeta();
@@ -157,15 +174,27 @@ public class MinecraftSweeper extends JavaPlugin {
 		}
 
 		@Override
-		public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
+		@SuppressWarnings("deprecation")
+		public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biomeGrid) {
+			Biome biome;
+			try {
+				biome = Biome.valueOf("THE_VOID");
+			} catch (IllegalArgumentException e) {
+				biome = Biome.valueOf("VOID");
+			}
 			for (int cX = 0; cX < this.config.chunkSize; cX++)
 				for (int cZ = 0; cZ < this.config.chunkSize; cZ++)
-					biome.setBiome(cX, cZ, Biome.THE_VOID);
+					biomeGrid.setBiome(cX, cZ, biome);
 
 			ChunkData data = createChunkData(world);
 
 			data.setRegion(0, 0, 0, this.config.chunkSize, 1, this.config.chunkSize, Material.BEDROCK); // Bedrock layer
-			data.setRegion(0, 1, 0, this.config.chunkSize, this.config.mapHeight + 1, this.config.chunkSize, Material.WHITE_CONCRETE); // Fill
+			try {
+				data.setRegion(0, 1, 0, this.config.chunkSize, this.config.mapHeight + 1, this.config.chunkSize, Material.WHITE_CONCRETE); // Fill
+			} catch (NoSuchFieldError e) {
+				MaterialData materialData = new MaterialData(Material.valueOf("CONCRETE"), (byte) 0); // White concrete
+				data.setRegion(0, 1, 0, this.config.chunkSize, this.config.mapHeight + 1, this.config.chunkSize, materialData); // Fill
+			}
 
 			int startX = -(x * this.config.chunkSize) % this.config.squareSize;
 			if (startX > 0) startX -= this.config.squareSize;
@@ -182,7 +211,12 @@ public class MinecraftSweeper extends JavaPlugin {
 						for (int sY = 0; sY < this.config.squareSize; sY++) {
 							if (squareY + sY < 0 || squareY + sY >= this.config.chunkSize) continue;
 							if (sX != 0 && sX != this.config.squareSize - 1 && sY != 0 && sY != this.config.squareSize - 1) continue;
-							data.setBlock(squareX + sX, this.config.mapHeight - 1, squareY + sY, Material.GRAY_CONCRETE); // Border
+							try {
+								data.setBlock(squareX + sX, this.config.mapHeight - 1, squareY + sY, Material.GRAY_CONCRETE); // Border
+							} catch (NoSuchFieldError e) {
+								MaterialData materialData = new MaterialData(Material.valueOf("CONCRETE"), (byte) 7); // Gray concrete
+								data.setBlock(squareX + sX, this.config.mapHeight - 1, squareY + sY, materialData); // Border
+							}
 							data.setBlock(squareX + sX, this.config.mapHeight, squareY + sY, Material.AIR); // Air above border
 						}
 					}
