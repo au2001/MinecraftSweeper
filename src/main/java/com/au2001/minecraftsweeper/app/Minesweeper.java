@@ -3,6 +3,7 @@ package com.au2001.minecraftsweeper.app;
 import com.au2001.minecraftsweeper.api.BombGrid;
 import com.au2001.minecraftsweeper.api.Game;
 import com.au2001.minecraftsweeper.api.GameStorage;
+import com.au2001.minecraftsweeper.api.storage.BinaryGameStorage;
 import com.au2001.minecraftsweeper.api.storage.SQLiteGameStorage;
 import com.au2001.minecraftsweeper.api.storage.TempGameStorage;
 
@@ -16,10 +17,14 @@ public class Minesweeper {
 
 	public static void main(String[] args) {
 		GameStorage gameStorage;
-		if (args.length > 0 && args[0].startsWith("sqlite:"))
+		if (args.length > 0 && args[0].startsWith("sql:"))
+			gameStorage = new SQLiteGameStorage(new File(args[0].substring(4)));
+		else if (args.length > 0 && args[0].startsWith("sqlite:"))
 			gameStorage = new SQLiteGameStorage(new File(args[0].substring(7)));
-		else if (args.length > 0 && args[0].equalsIgnoreCase("sqlite"))
-			gameStorage = new SQLiteGameStorage(new File(args[0].substring(7)));
+		else if (args.length > 0 && args[0].equalsIgnoreCase("bin:"))
+			gameStorage = new BinaryGameStorage(new File(args[0].substring(4)));
+		else if (args.length > 0 && args[0].equalsIgnoreCase("binary:"))
+			gameStorage = new BinaryGameStorage(new File(args[0].substring(7)));
 		else gameStorage = new TempGameStorage();
 
 		BombGrid grid = new BombGrid(gameStorage);
