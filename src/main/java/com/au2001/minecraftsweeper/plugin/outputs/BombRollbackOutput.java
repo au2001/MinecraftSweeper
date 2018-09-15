@@ -49,7 +49,7 @@ public class BombRollbackOutput extends Output {
 				for (int dx = -range; dx <= range; dx++) {
 					for (int dy = -range; dy <= range; dy++) {
 						if (this.config.rollbackCircle && dx * dx + dy * dy > range * range) continue;
-						this.game.rollback(square.getRelative(dx, dy)); // TODO: Doesn't regenerate bombs
+						this.game.rollback(square.getRelative(dx, dy));
 					}
 				}
 

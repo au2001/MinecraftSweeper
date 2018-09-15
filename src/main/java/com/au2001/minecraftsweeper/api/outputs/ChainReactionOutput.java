@@ -40,7 +40,6 @@ public class ChainReactionOutput extends Output {
 	@Override
 	public void sweep(Square square) {
 		if (square.getBombCount(this.range, this.circle) > 0) return;
-		boolean original = this.chaining == 0;
 		Set<Square> chained = new HashSet<Square>();
 		for (int dx = -range; dx <= range; dx++) {
 			for (int dy = -range; dy <= range; dy++) {
@@ -53,6 +52,7 @@ public class ChainReactionOutput extends Output {
 			if (this.chaining + chained.size() >= maxChained) break;
 		}
 		if (!chained.isEmpty()) {
+			boolean original = this.chaining == 0;
 			this.chaining += chained.size();
 			for (Square other : chained)
 				this.game.grid.gameStorage.setSweeped(other.x, other.y, true);

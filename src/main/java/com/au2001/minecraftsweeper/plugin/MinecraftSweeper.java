@@ -23,6 +23,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.util.HashSet;
@@ -83,48 +84,29 @@ public class MinecraftSweeper extends JavaPlugin {
 //			saveConfig();
 //		}
 
-		World world = Bukkit.getWorld(this.config.worldName);
+		World world = Bukkit.getWorld(MinecraftSweeper.this.config.worldName);
 		if (world == null) {
-			WorldCreator creator = new WorldCreator(this.config.worldName);
-			creator.type(WorldType.CUSTOMIZED);
-			creator.environment(Environment.NORMAL);
-			creator.generateStructures(false);
-			creator.generator(this.getDefaultWorldGenerator(creator.name(), ""));
-			world = creator.createWorld();
-		}
-
-		this.bombGrid = new MCBombGrid(world, this.gameStorage, this.config.bombChance, this.config.squareSize);
-		this.game = new MCGame(this.bombGrid);
-
-		// this.game.addInput(new MCBlockBreakInput(this.game, this));
-		// this.game.addInput(new MCPlayerInteractInput(this.game, this));
-		this.game.addInput(new KeyItemInput(this.game, this.config, this));
-
-		if (this.config.rollbackRange >= 0)
-			this.game.addOutput(new BombRollbackOutput(this.game, this.config));
-		this.game.addOutput(new SquarePainterOutput(this.gameStorage, this.config));
-
-		if (this.config.debug) {
-			this.game.reset();
-			this.game.addOutput(new DebugOutput());
-
-			for (int x = -25; x <= 25; x++) {
-				for (int y = -25; y <= 25; y++) {
-					Square square = new MCSquare(this.bombGrid, x, y);
-					if (!square.isBomb()) this.game.sweep(square);
+			new BukkitRunnable() {
+				public void run() {
+					World world = Bukkit.getWorld(MinecraftSweeper.this.config.worldName);
+					if (world == null) {
+						WorldCreator creator = new WorldCreator(MinecraftSweeper.this.config.worldName);
+						creator.type(WorldType.CUSTOMIZED);
+						creator.environment(Environment.NORMAL);
+						creator.generateStructures(false);
+						creator.generator(MinecraftSweeper.this.getDefaultWorldGenerator(creator.name(), ""));
+						world = creator.createWorld();
+					}
+					setup(world);
 				}
-			}
-		}
-
-		// Add chain reaction after debug to prevent sweeping too much
-		if (this.config.maxChained > 0)
-			this.game.addOutput(new ChainReactionOutput(this.game, this.config.detectRange, this.config.detectCircle, this.config.maxChained));
+			}.runTask(this);
+		} else setup(world);
 	}
 
 	@Override
 	public void onDisable() {
 		if (this.config.debug) this.game.reset();
-		this.game.close();
+		if (this.game != null) this.game.close();
 
 		this.config = null;
 		this.gameStorage = null;
@@ -147,6 +129,34 @@ public class MinecraftSweeper extends JavaPlugin {
 			return new MCSChunkGenerator(this.gameStorage, this.config);
 
 		return super.getDefaultWorldGenerator(world, id);
+	}
+
+	private void setup(World world) {
+		this.bombGrid = new MCBombGrid(world, this.gameStorage, this.config.bombChance, this.config.squareSize);
+		this.game = new MCGame(this.bombGrid);
+
+		// this.game.addInput(new MCBlockBreakInput(this.game, this));
+		// this.game.addInput(new MCPlayerInteractInput(this.game, this));
+		this.game.addInput(new KeyItemInput(this.game, this.config, this));
+
+		if (this.config.rollbackRange >= 0) this.game.addOutput(new BombRollbackOutput(this.game, this.config));
+		this.game.addOutput(new SquarePainterOutput(this.gameStorage, this.config));
+
+		if (this.config.debug) {
+			this.game.reset();
+			this.game.addOutput(new DebugOutput());
+
+			for (int x = -25; x <= 25; x++) {
+				for (int y = -25; y <= 25; y++) {
+					Square square = new MCSquare(this.bombGrid, x, y);
+					if (!square.isBomb()) this.game.sweep(square);
+				}
+			}
+		}
+
+		// Add chain reaction after debug to prevent sweeping too much
+		if (this.config.maxChained > 0)
+			this.game.addOutput(new ChainReactionOutput(this.game, this.config.detectRange, this.config.detectCircle, this.config.maxChained));
 	}
 
 	public static MinecraftSweeper getInstance() {
@@ -202,7 +212,7 @@ public class MinecraftSweeper extends JavaPlugin {
 			if (startY > 0) startY -= this.config.squareSize;
 
 			Set<Square> pending = new HashSet<Square>();
-			BombGrid bombGrid = new BombGrid(world.getUID(), this.gameStorage, this.config.bombChance);
+			BombGrid bombGrid = this.gameStorage != null? new BombGrid(world.getUID(), this.gameStorage, this.config.bombChance) : null;
 
 			for (int squareX = startX; squareX < this.config.chunkSize; squareX += this.config.squareSize) {
 				for (int squareY = startY; squareY < this.config.chunkSize; squareY += this.config.squareSize) {
@@ -223,12 +233,18 @@ public class MinecraftSweeper extends JavaPlugin {
 
 					int cX = Math.floorDiv(x * this.config.chunkSize + squareX, this.config.squareSize);
 					int cY = Math.floorDiv(z * this.config.chunkSize + squareY, this.config.squareSize);
-					if (this.gameStorage.isSweeped(cX, cY)) pending.add(new Square(bombGrid, cX, cY));
+					if (this.gameStorage != null && this.gameStorage.isSweeped(cX, cY)) pending.add(new Square(bombGrid, cX, cY));
 				}
 			}
 
-			for (Square square : pending)
-				MCSChunkGenerator.this.squarePainter.paint(square);
+			if (!pending.isEmpty()) {
+				new BukkitRunnable() {
+					public void run() {
+						for (Square square : pending)
+							MCSChunkGenerator.this.squarePainter.paint(square);
+					}
+				}.runTask(MinecraftSweeper.getInstance());
+			}
 
 			return data;
 		}
