@@ -180,7 +180,7 @@ public class MinecraftSweeper extends JavaPlugin {
 
 		@Override
 		public Location getFixedSpawnLocation(World world, Random random) {
-			return new Location(world, 0, this.config.mapHeight, 0);
+			return new Location(world, 0, this.config.mapHeight, 0, 180, 0);
 		}
 
 		@Override
@@ -233,7 +233,8 @@ public class MinecraftSweeper extends JavaPlugin {
 
 					int cX = Math.floorDiv(x * this.config.chunkSize + squareX, this.config.squareSize);
 					int cY = Math.floorDiv(z * this.config.chunkSize + squareY, this.config.squareSize);
-					if (this.gameStorage != null && this.gameStorage.isSweeped(cX, cY)) pending.add(new Square(bombGrid, cX, cY));
+					// if (this.gameStorage != null && this.gameStorage.isSweeped(cX, cY))
+					pending.add(new Square(bombGrid, cX, cY));
 				}
 			}
 

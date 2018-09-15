@@ -81,19 +81,45 @@ public class BuildStatics {
 		WHITE_CONCRETE = whiteConcrete;
 	}
 
-	static { // Bomb
+	static { // Unknown
 		UNKNOWN = new HashMap<Point, MaterialData>();
 
 		for (int x = 1; x < 8; x++) {
 			for (int z = 1; z < 8; z++) {
 				BuildStatics.UNKNOWN.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
-				BuildStatics.UNKNOWN.put(new Point(x, 1, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.UNKNOWN.put(new Point(x, 1, z), BuildStatics.LIGHT_GRAY_CONCRETE);
 			}
 		}
 	}
 
-	static { // TODO: Flag
-		FLAG = BuildStatics.UNKNOWN;
+	static { // Flag
+		FLAG = new HashMap<Point, MaterialData>();
+
+		for (int x = 1; x < 8; x++) {
+			for (int z = 1; z < 8; z++) {
+				BuildStatics.FLAG.put(new Point(x, 0, z), BuildStatics.WHITE_CONCRETE);
+				BuildStatics.FLAG.put(new Point(x, 1, z), BuildStatics.AIR);
+			}
+		}
+
+		BuildStatics.FLAG.put(new Point(3, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FLAG.put(new Point(4, 0, 2), BuildStatics.RED_CONCRETE);
+
+		BuildStatics.FLAG.put(new Point(2, 0, 3), BuildStatics.RED_CONCRETE);
+		BuildStatics.FLAG.put(new Point(3, 0, 3), BuildStatics.RED_CONCRETE);
+		BuildStatics.FLAG.put(new Point(4, 0, 3), BuildStatics.RED_CONCRETE);
+
+		BuildStatics.FLAG.put(new Point(4, 0, 4), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.FLAG.put(new Point(3, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(4, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(5, 0, 5), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.FLAG.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(3, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(5, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.FLAG.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
 	}
 
 	static { // Zero
@@ -117,18 +143,18 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.ONE.put(new Point(4, 0, 6), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		BuildStatics.ONE.put(new Point(5, 0, 5), BuildStatics.LIGHT_BLUE_CONCRETE);
-		BuildStatics.ONE.put(new Point(4, 0, 5), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(3, 0, 3), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 3), BuildStatics.LIGHT_BLUE_CONCRETE);
 
 		BuildStatics.ONE.put(new Point(4, 0, 4), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		BuildStatics.ONE.put(new Point(4, 0, 3), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 5), BuildStatics.LIGHT_BLUE_CONCRETE);
 
-		BuildStatics.ONE.put(new Point(5, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
-		BuildStatics.ONE.put(new Point(4, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
-		BuildStatics.ONE.put(new Point(3, 0, 2), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(3, 0, 6), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(4, 0, 6), BuildStatics.LIGHT_BLUE_CONCRETE);
+		BuildStatics.ONE.put(new Point(5, 0, 6), BuildStatics.LIGHT_BLUE_CONCRETE);
 	}
 
 	static { // Two
@@ -141,23 +167,23 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.TWO.put(new Point(5, 0, 6), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(4, 0, 6), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(3, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(4, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 2), BuildStatics.GREEN_CONCRETE);
 
-		BuildStatics.TWO.put(new Point(6, 0, 5), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(2, 0, 5), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(2, 0, 3), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(6, 0, 3), BuildStatics.GREEN_CONCRETE);
 
 		BuildStatics.TWO.put(new Point(4, 0, 4), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(3, 0, 4), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 4), BuildStatics.GREEN_CONCRETE);
 
-		BuildStatics.TWO.put(new Point(5, 0, 3), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 5), BuildStatics.GREEN_CONCRETE);
 
-		BuildStatics.TWO.put(new Point(6, 0, 2), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(5, 0, 2), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(4, 0, 2), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(3, 0, 2), BuildStatics.GREEN_CONCRETE);
-		BuildStatics.TWO.put(new Point(2, 0, 2), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(2, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(3, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(4, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(5, 0, 6), BuildStatics.GREEN_CONCRETE);
+		BuildStatics.TWO.put(new Point(6, 0, 6), BuildStatics.GREEN_CONCRETE);
 	}
 
 	static { // Three
@@ -170,20 +196,20 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.THREE.put(new Point(5, 0, 6), BuildStatics.ORANGE_CONCRETE);
-		BuildStatics.THREE.put(new Point(4, 0, 6), BuildStatics.ORANGE_CONCRETE);
-		BuildStatics.THREE.put(new Point(3, 0, 6), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(3, 0, 2), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(4, 0, 2), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(5, 0, 2), BuildStatics.ORANGE_CONCRETE);
 
-		BuildStatics.THREE.put(new Point(2, 0, 5), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(6, 0, 3), BuildStatics.ORANGE_CONCRETE);
 
 		BuildStatics.THREE.put(new Point(4, 0, 4), BuildStatics.ORANGE_CONCRETE);
-		BuildStatics.THREE.put(new Point(3, 0, 4), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(5, 0, 4), BuildStatics.ORANGE_CONCRETE);
 
-		BuildStatics.THREE.put(new Point(2, 0, 3), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(6, 0, 5), BuildStatics.ORANGE_CONCRETE);
 
-		BuildStatics.THREE.put(new Point(5, 0, 2), BuildStatics.ORANGE_CONCRETE);
-		BuildStatics.THREE.put(new Point(4, 0, 2), BuildStatics.ORANGE_CONCRETE);
-		BuildStatics.THREE.put(new Point(3, 0, 2), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(3, 0, 6), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(4, 0, 6), BuildStatics.ORANGE_CONCRETE);
+		BuildStatics.THREE.put(new Point(5, 0, 6), BuildStatics.ORANGE_CONCRETE);
 	}
 
 	static { // Four
@@ -196,21 +222,21 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.FOUR.put(new Point(5, 0, 6), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(3, 0, 6), BuildStatics.BLUE_CONCRETE);
-
-		BuildStatics.FOUR.put(new Point(6, 0, 5), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(3, 0, 5), BuildStatics.BLUE_CONCRETE);
-
-		BuildStatics.FOUR.put(new Point(6, 0, 4), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(5, 0, 4), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(4, 0, 4), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(3, 0, 4), BuildStatics.BLUE_CONCRETE);
-		BuildStatics.FOUR.put(new Point(2, 0, 4), BuildStatics.BLUE_CONCRETE);
-
-		BuildStatics.FOUR.put(new Point(3, 0, 3), BuildStatics.BLUE_CONCRETE);
-
 		BuildStatics.FOUR.put(new Point(3, 0, 2), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(5, 0, 2), BuildStatics.BLUE_CONCRETE);
+
+		BuildStatics.FOUR.put(new Point(2, 0, 3), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(5, 0, 3), BuildStatics.BLUE_CONCRETE);
+
+		BuildStatics.FOUR.put(new Point(2, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(3, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(4, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(5, 0, 4), BuildStatics.BLUE_CONCRETE);
+		BuildStatics.FOUR.put(new Point(6, 0, 4), BuildStatics.BLUE_CONCRETE);
+
+		BuildStatics.FOUR.put(new Point(5, 0, 5), BuildStatics.BLUE_CONCRETE);
+
+		BuildStatics.FOUR.put(new Point(5, 0, 6), BuildStatics.BLUE_CONCRETE);
 	}
 
 	static { // Five
@@ -223,24 +249,24 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.FIVE.put(new Point(6, 0, 6), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(5, 0, 6), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(4, 0, 6), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(3, 0, 6), BuildStatics.RED_CONCRETE);
-
-		BuildStatics.FIVE.put(new Point(6, 0, 5), BuildStatics.RED_CONCRETE);
-
-		BuildStatics.FIVE.put(new Point(6, 0, 4), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(5, 0, 4), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(4, 0, 4), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(3, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(2, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 2), BuildStatics.RED_CONCRETE);
 
 		BuildStatics.FIVE.put(new Point(2, 0, 3), BuildStatics.RED_CONCRETE);
 
-		BuildStatics.FIVE.put(new Point(6, 0, 2), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(5, 0, 2), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(4, 0, 2), BuildStatics.RED_CONCRETE);
-		BuildStatics.FIVE.put(new Point(3, 0, 2), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(2, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 4), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 4), BuildStatics.RED_CONCRETE);
+
+		BuildStatics.FIVE.put(new Point(6, 0, 5), BuildStatics.RED_CONCRETE);
+
+		BuildStatics.FIVE.put(new Point(2, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(3, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(4, 0, 6), BuildStatics.RED_CONCRETE);
+		BuildStatics.FIVE.put(new Point(5, 0, 6), BuildStatics.RED_CONCRETE);
 	}
 
 	static { // Six
@@ -253,23 +279,23 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.SIX.put(new Point(5, 0, 6), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(4, 0, 6), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(3, 0, 6), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(3, 0, 2), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 2), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 2), BuildStatics.CYAN_CONCRETE);
 
-		BuildStatics.SIX.put(new Point(6, 0, 5), BuildStatics.CYAN_CONCRETE);
-
-		BuildStatics.SIX.put(new Point(6, 0, 4), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(5, 0, 4), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(4, 0, 4), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(3, 0, 4), BuildStatics.CYAN_CONCRETE);
-
-		BuildStatics.SIX.put(new Point(6, 0, 3), BuildStatics.CYAN_CONCRETE);
 		BuildStatics.SIX.put(new Point(2, 0, 3), BuildStatics.CYAN_CONCRETE);
 
-		BuildStatics.SIX.put(new Point(5, 0, 2), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(4, 0, 2), BuildStatics.CYAN_CONCRETE);
-		BuildStatics.SIX.put(new Point(3, 0, 2), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(2, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(3, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 4), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 4), BuildStatics.CYAN_CONCRETE);
+
+		BuildStatics.SIX.put(new Point(2, 0, 5), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(6, 0, 5), BuildStatics.CYAN_CONCRETE);
+
+		BuildStatics.SIX.put(new Point(3, 0, 6), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(4, 0, 6), BuildStatics.CYAN_CONCRETE);
+		BuildStatics.SIX.put(new Point(5, 0, 6), BuildStatics.CYAN_CONCRETE);
 	}
 
 	static { // Seven
@@ -282,19 +308,19 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.SEVEN.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.SEVEN.put(new Point(5, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.SEVEN.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.SEVEN.put(new Point(3, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.SEVEN.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.SEVEN.put(new Point(2, 0, 5), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.SEVEN.put(new Point(3, 0, 4), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.SEVEN.put(new Point(4, 0, 3), BuildStatics.BLACK_CONCRETE);
-
+		BuildStatics.SEVEN.put(new Point(2, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(3, 0, 2), BuildStatics.BLACK_CONCRETE);
 		BuildStatics.SEVEN.put(new Point(4, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(5, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.SEVEN.put(new Point(6, 0, 2), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.SEVEN.put(new Point(6, 0, 3), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.SEVEN.put(new Point(5, 0, 4), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.SEVEN.put(new Point(4, 0, 5), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.SEVEN.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
 	}
 
 	static { // Eight
@@ -307,23 +333,23 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.EIGHT.put(new Point(5, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(4, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(3, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
-
-		BuildStatics.EIGHT.put(new Point(6, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(2, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
-
-		BuildStatics.EIGHT.put(new Point(5, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(4, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(3, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
-
-		BuildStatics.EIGHT.put(new Point(6, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(2, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
-
-		BuildStatics.EIGHT.put(new Point(5, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
-		BuildStatics.EIGHT.put(new Point(4, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
 		BuildStatics.EIGHT.put(new Point(3, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 2), BuildStatics.LIGHT_GRAY_CONCRETE);
+
+		BuildStatics.EIGHT.put(new Point(2, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(6, 0, 3), BuildStatics.LIGHT_GRAY_CONCRETE);
+
+		BuildStatics.EIGHT.put(new Point(3, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 4), BuildStatics.LIGHT_GRAY_CONCRETE);
+
+		BuildStatics.EIGHT.put(new Point(2, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(6, 0, 5), BuildStatics.LIGHT_GRAY_CONCRETE);
+
+		BuildStatics.EIGHT.put(new Point(3, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(4, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
+		BuildStatics.EIGHT.put(new Point(5, 0, 6), BuildStatics.LIGHT_GRAY_CONCRETE);
 	}
 
 	static { // Bomb
@@ -336,27 +362,27 @@ public class BuildStatics {
 			}
 		}
 
-		BuildStatics.BOMB.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.BOMB.put(new Point(5, 0, 5), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(4, 0, 5), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(3, 0, 5), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.BOMB.put(new Point(6, 0, 4), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(5, 0, 4), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(4, 0, 4), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(3, 0, 4), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(2, 0, 4), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.BOMB.put(new Point(5, 0, 3), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(4, 0, 3), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(3, 0, 3), BuildStatics.BLACK_CONCRETE);
-
-		BuildStatics.BOMB.put(new Point(6, 0, 2), BuildStatics.BLACK_CONCRETE);
-		BuildStatics.BOMB.put(new Point(4, 0, 2), BuildStatics.BLACK_CONCRETE);
 		BuildStatics.BOMB.put(new Point(2, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 2), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 2), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.BOMB.put(new Point(3, 0, 3), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 3), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 3), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.BOMB.put(new Point(2, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(3, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 4), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 4), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.BOMB.put(new Point(3, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 5), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(5, 0, 5), BuildStatics.BLACK_CONCRETE);
+
+		BuildStatics.BOMB.put(new Point(2, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(4, 0, 6), BuildStatics.BLACK_CONCRETE);
+		BuildStatics.BOMB.put(new Point(6, 0, 6), BuildStatics.BLACK_CONCRETE);
 	}
 
 	public static class Point {
