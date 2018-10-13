@@ -45,3 +45,46 @@ file_name: 'storage.bin'
 storage_type: 'BINARY'
 
 debug: false
+
+reward:
+  sweep:
+    4:
+    - 'tell {PLAYER} You sweeped a square with 4 nearby bombs!'
+    5:
+    - 'tell {PLAYER} You sweeped a square with 5 nearby bombs!'
+    6:
+    - 'tell {PLAYER} You sweeped a square with 6 nearby bombs!'
+    7:
+    - 'tell {PLAYER} You sweeped a square with 7 nearby bombs!'
+    8:
+    - 'tell {PLAYER} You sweeped a square with 8 nearby bombs! YOU''RE DOOMED!'
+    bomb:
+    - 'tell {PLAYER} Oops! You hit a bomb!'
+
+  rollback:
+    bomb:
+    - 'tell {PLAYER} Watch out! A bomb appeared ;)'
+
+  flag:
+    bomb:
+    - 'tell {PLAYER} Psst... You were right, it''s a trap!'
+
+  unflag:
+    0:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    1:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    2:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    3:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    4:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    5:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    6:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    7:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'
+    8:
+    - 'tell {PLAYER} Yup. That ain''t a bomb...'

@@ -49,10 +49,12 @@ public class SquarePainterOutput extends Output {
 		}
 	}
 
+	@Override
 	public void flag(Square square) {
 		this.paint(square);
 	}
 
+	@Override
 	public void unflag(Square square) {
 		this.paint(square);
 	}

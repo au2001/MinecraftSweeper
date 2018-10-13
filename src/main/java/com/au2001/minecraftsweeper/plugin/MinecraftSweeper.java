@@ -14,6 +14,7 @@ import com.au2001.minecraftsweeper.api.storage.TempGameStorage;
 import com.au2001.minecraftsweeper.plugin.MCSConfig.StorageType;
 import com.au2001.minecraftsweeper.plugin.inputs.KeyItemInput;
 import com.au2001.minecraftsweeper.plugin.outputs.BombRollbackOutput;
+import com.au2001.minecraftsweeper.plugin.outputs.RewardOutput;
 import com.au2001.minecraftsweeper.plugin.outputs.SquarePainterOutput;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
@@ -141,6 +142,7 @@ public class MinecraftSweeper extends JavaPlugin {
 
 		if (this.config.rollbackRange >= 0) this.game.addOutput(new BombRollbackOutput(this.game, this.config));
 		this.game.addOutput(new SquarePainterOutput(this.gameStorage, this.config));
+		this.game.addOutput(new RewardOutput(this.game, this.config));
 
 		if (this.config.debug) {
 			this.game.reset();

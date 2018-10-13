@@ -6,6 +6,7 @@ import com.au2001.minecraftsweeper.api.mc.MCGame;
 import com.au2001.minecraftsweeper.api.mc.MCSquare;
 import com.au2001.minecraftsweeper.plugin.MCSConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -22,6 +23,8 @@ public class KeyItemInput extends Input implements Listener, Closeable {
 	protected final MCGame game;
 	protected final MCSConfig config;
 
+	protected Player sweeper = null;
+
 	public KeyItemInput(MCGame game, MCSConfig config, Plugin plugin) {
 		super();
 
@@ -29,6 +32,10 @@ public class KeyItemInput extends Input implements Listener, Closeable {
 		this.config = config;
 
 		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
+	public Player getSweeper() {
+		return sweeper;
 	}
 
 	@EventHandler
@@ -58,7 +65,10 @@ public class KeyItemInput extends Input implements Listener, Closeable {
 			}
 		}
 
+		Player sweeper = this.sweeper;
+		this.sweeper = event.getPlayer();
 		this.sweep(square);
+		this.sweeper = sweeper;
 	}
 
 	@Override

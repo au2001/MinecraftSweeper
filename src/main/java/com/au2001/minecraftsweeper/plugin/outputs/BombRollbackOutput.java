@@ -21,6 +21,7 @@ public class BombRollbackOutput extends Output {
 		this.config = config;
 	}
 
+	@Override
 	public void sweep(Square square) {
 		if (square.isBomb()) {
 			int range = this.config.rollbackRange;
@@ -60,9 +61,13 @@ public class BombRollbackOutput extends Output {
 		}
 	}
 
+	@Override
 	public void rollback(Square square) { /* No Op */ }
 
+	@Override
 	public void flag(Square square) { /* No Op */ }
+
+	@Override
 	public void unflag(Square square) { /* No Op */ }
 
 }
